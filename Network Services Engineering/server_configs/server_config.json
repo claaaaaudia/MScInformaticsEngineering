@@ -1,0 +1,8 @@
+{
+    "streams": [
+        {
+            "stream_id": "movie1",
+            "video_file": "./movie.Mjpeg"
+        }
+    ]
+}
