@@ -27,7 +27,7 @@ The main objective is to classify congestion levels based on the variable *avera
 - 📈 Evaluation using accuracy and benchmarking (e.g., Kaggle)
 
 🎯 **Skills acquired:**  
-Data Analysis · Predictive Modeling · Model Optimization · Comparative Analysis
+`Data Analysis` · `Predictive Modeling` · `Model Optimization` · `Comparative Analysis`
 
 ---
 
@@ -46,7 +46,7 @@ The system is designed to deliver **real-time multimedia content efficiently** u
 This approach ensures a balance between **reliability and performance**.
 
 🎯 **Skills acquired:**  
-Network Design · Distributed Systems · Communication Protocols
+`Network Design` · `Distributed Systems` · `Communication Protocols`
 
 ---
 
@@ -67,7 +67,7 @@ This project builds upon a pre-existing system developed by previous students.
 3. ⚙️ Implementation of new features  
 
 🎯 **Skills acquired:**  
-Requirements Engineering · Software Design · Frontend & Backend Development · APIs · Microservices
+`Requirements Engineering` · `Software Design` · `Frontend & Backend Development` · `APIs` · `Microservices`
 
 ---
 
