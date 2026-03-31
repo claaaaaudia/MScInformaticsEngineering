@@ -1,3 +1,19 @@
+## 🖼️ Software Requirements and Architectures
+
+PictuRAS is a comprehensive web-based image editing platform that combines traditional image processing tools with cutting-edge AI capabilities. Built as a microservices architecture, it provides users with an intuitive interface for editing images, applying effects, and leveraging AI-powered features for smart enhancements. This project was initially developed by colleagues from older years. 
+
+The project was divided in 3 phases:
+
+- 🔍 analysis of the existing solution;
+- 🧾 expansion of requirements list;
+- ⚙️ implementation of new features derived from the requirements.
+
+🎯 Skills acquired: requirements engineering, software design, frontend, backend, API, microservices.
+
+> ⚠️ Scroll to see the original README of this project.
+
+---
+
 # PictuRAS
 
 **Your personal, intuitive and powerful image editor.**

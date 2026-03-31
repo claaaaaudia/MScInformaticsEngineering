@@ -1,0 +1,7 @@
+## 🚦 Data and Machine Learning
+
+This project focuses on predicting road traffic conditions in Porto using Machine Learning techniques and real-world data. Traffic is modeled as a dynamic system influenced by factors like time and weather, and the goal is to classify congestion levels based on the variable *average speed diff*. The work involves exploring a year-long dataset, preparing the data, and training multiple classification models to accurately predict traffic states, helping improve urban mobility and congestion management.
+
+To achieve this, the project follows a structured data science workflow. It begins with exploratory data analysis to uncover patterns and relationships, followed by data preprocessing steps such as cleaning, handling missing values, feature engineering, and encoding categorical variables. Multiple classification models are then developed and optimized using techniques like Bagging, Boosting, Stacking, and Ensemble methods, with hyperparameter tuning performed through approaches such as Grid Search and Random Search. Model performance is evaluated primarily using accuracy, including validation and external benchmarking (e.g., Kaggle). Through this process, the best-performing model is identified based on its ability to generalize and avoid overfitting.
+
+🎯 Skills acquired: data analysis and preprocessing, building and optimizing predictive models, comparative analysis.
