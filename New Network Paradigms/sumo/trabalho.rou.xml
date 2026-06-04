@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    
+    <vType id="DEFAULT_VEHTYPE" 
+           laneChangeModel="LC2013" 
+           lcStrategic="0.1" 
+           lcCooperative="1.0" 
+           lcSpeedGain="5.0" 
+           lcKeepRight="0.0" 
+           lcAssertive="2.0" 
+           lcPushy="1.0" />
+
+    <route id="r_0" edges="E0 E1 E2"/>
+    <route id="r_1" edges="E3"/>
+
+</routes>

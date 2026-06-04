@@ -1,0 +1,12 @@
+{
+  "prototypes": [
+    {
+      "name": "PKW",
+      "applications": [
+        "org.eclipse.mosaic.fed.application.app.empty.Vehicle"
+      ]
+    }
+  ],
+  "chargingStations": [],
+  "vehicles": []
+}

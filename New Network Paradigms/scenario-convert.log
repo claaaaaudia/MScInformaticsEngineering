@@ -1,0 +1,458 @@
+17:30:56.555 INFO  - Call with parameters: --sumo2db -d application/trabalho.db -i sumo/trabalho.net.xml
+17:30:56.670 INFO  - initializing database
+17:30:56.671 INFO  - loading database... 
+17:30:57.008 INFO  - success
+
+17:30:57.019 INFO  - parsing net file
+17:30:57.028 ERROR - An unexpected error occurred.
+java.lang.NullPointerException: If import-zone is not given, import-lat and import-lon must be defined.
+	at java.base/java.util.Objects.requireNonNull(Objects.java:360)
+	at org.apache.commons.lang3.Validate.notNull(Validate.java:1037)
+	at com.dcaiti.mosaic.tools.scenarioconvert.importer.sumo.SumoImport.processUtmZone(SumoImport.java:420)
+	at com.dcaiti.mosaic.tools.scenarioconvert.importer.sumo.SumoNetFileLoader.handleNetProjection(SumoNetFileLoader.java:139)
+	at com.dcaiti.mosaic.tools.scenarioconvert.importer.sumo.SumoNetFileLoader.startElement(SumoNetFileLoader.java:94)
+	at org.apache.xerces.parsers.AbstractSAXParser.startElement(Unknown Source)
+	at org.apache.xerces.parsers.AbstractXMLDocumentParser.emptyElement(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl.scanStartElement(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl$FragmentContentDispatcher.dispatch(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl.scanDocument(Unknown Source)
+	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)
+	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)
+	at org.apache.xerces.parsers.XMLParser.parse(Unknown Source)
+	at org.apache.xerces.parsers.AbstractSAXParser.parse(Unknown Source)
+	at org.apache.xerces.jaxp.SAXParserImpl$JAXPSAXParser.parse(Unknown Source)
+	at org.apache.xerces.jaxp.SAXParserImpl.parse(Unknown Source)
+	at java.xml/javax.xml.parsers.SAXParser.parse(SAXParser.java:276)
+	at com.dcaiti.mosaic.tools.scenarioconvert.importer.sumo.SumoNetFileLoader.importNetFile(SumoNetFileLoader.java:69)
+	at com.dcaiti.mosaic.tools.scenarioconvert.importer.sumo.SumoImport.importNetwork(SumoImport.java:107)
+	at com.dcaiti.mosaic.tools.scenarioconvert.core.Converter.convert(Converter.java:94)
+	at com.dcaiti.mosaic.tools.scenarioconvert.core.Starter.main(Starter.java:36)
+17:30:57.033 ERROR - Could not load network data from Net File.
+java.lang.IllegalStateException: Could not parse network file
+	at com.dcaiti.mosaic.tools.scenarioconvert.importer.sumo.SumoNetFileLoader.importNetFile(SumoNetFileLoader.java:78)
+	at com.dcaiti.mosaic.tools.scenarioconvert.importer.sumo.SumoImport.importNetwork(SumoImport.java:107)
+	at com.dcaiti.mosaic.tools.scenarioconvert.core.Converter.convert(Converter.java:94)
+	at com.dcaiti.mosaic.tools.scenarioconvert.core.Starter.main(Starter.java:36)
+Caused by: java.lang.NullPointerException: If import-zone is not given, import-lat and import-lon must be defined.
+	at java.base/java.util.Objects.requireNonNull(Objects.java:360)
+	at org.apache.commons.lang3.Validate.notNull(Validate.java:1037)
+	at com.dcaiti.mosaic.tools.scenarioconvert.importer.sumo.SumoImport.processUtmZone(SumoImport.java:420)
+	at com.dcaiti.mosaic.tools.scenarioconvert.importer.sumo.SumoNetFileLoader.handleNetProjection(SumoNetFileLoader.java:139)
+	at com.dcaiti.mosaic.tools.scenarioconvert.importer.sumo.SumoNetFileLoader.startElement(SumoNetFileLoader.java:94)
+	at org.apache.xerces.parsers.AbstractSAXParser.startElement(Unknown Source)
+	at org.apache.xerces.parsers.AbstractXMLDocumentParser.emptyElement(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl.scanStartElement(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl$FragmentContentDispatcher.dispatch(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl.scanDocument(Unknown Source)
+	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)
+	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)
+	at org.apache.xerces.parsers.XMLParser.parse(Unknown Source)
+	at org.apache.xerces.parsers.AbstractSAXParser.parse(Unknown Source)
+	at org.apache.xerces.jaxp.SAXParserImpl$JAXPSAXParser.parse(Unknown Source)
+	at org.apache.xerces.jaxp.SAXParserImpl.parse(Unknown Source)
+	at java.xml/javax.xml.parsers.SAXParser.parse(SAXParser.java:276)
+	at com.dcaiti.mosaic.tools.scenarioconvert.importer.sumo.SumoNetFileLoader.importNetFile(SumoNetFileLoader.java:69)
+	... 3 common frames omitted
+17:30:57.034 INFO  - no route file for import given, ignoring!
+17:30:57.399 INFO  - Saving 0 nodes...
+17:30:57.401 INFO  - Saving 0 ways...
+17:30:57.402 INFO  - Saving 0 connections...
+17:30:57.403 INFO  - Saving 0 restrictions...
+17:30:57.404 INFO  - Saving 0 routes...
+17:30:57.405 INFO  - Saving 0 roundabouts...
+17:30:57.405 INFO  - Saving 0 buildings...
+17:30:57.406 INFO  - Create Indices
+17:30:57.439 INFO  - Database saved
+17:30:57.441 INFO  - finished
+17:31:58.976 INFO  - Call with parameters: --sumo2db -d application/trabalho.db -i sumo/trabalho.net.xml
+17:31:59.015 INFO  - initializing database
+17:31:59.015 INFO  - loading database... 
+17:31:59.281 INFO  - success
+
+17:31:59.284 INFO  - parsing net file
+17:31:59.301 ERROR - Could not read attribute "origBoundary" in tag "location"
+java.lang.IllegalArgumentException: Invalid latitude: 4086949.963
+	at org.eclipse.mosaic.lib.geo.MutableGeoPoint.validateLatitude(MutableGeoPoint.java:94)
+	at org.eclipse.mosaic.lib.geo.MutableGeoPoint.set(MutableGeoPoint.java:81)
+	at org.eclipse.mosaic.lib.geo.MutableGeoPoint.<init>(MutableGeoPoint.java:77)
+	at org.eclipse.mosaic.lib.geo.GeoPoint.latLon(GeoPoint.java:46)
+	at org.eclipse.mosaic.lib.geo.GeoPoint.lonLat(GeoPoint.java:71)
+	at com.dcaiti.mosaic.tools.scenarioconvert.importer.sumo.net.UtmProjection.determineUtmZone(UtmProjection.java:77)
+	at com.dcaiti.mosaic.tools.scenarioconvert.importer.sumo.net.UtmProjection.<init>(UtmProjection.java:62)
+	at com.dcaiti.mosaic.tools.scenarioconvert.importer.sumo.SumoNetFileLoader.handleNetProjection(SumoNetFileLoader.java:133)
+	at com.dcaiti.mosaic.tools.scenarioconvert.importer.sumo.SumoNetFileLoader.startElement(SumoNetFileLoader.java:94)
+	at org.apache.xerces.parsers.AbstractSAXParser.startElement(Unknown Source)
+	at org.apache.xerces.parsers.AbstractXMLDocumentParser.emptyElement(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl.scanStartElement(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl$FragmentContentDispatcher.dispatch(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl.scanDocument(Unknown Source)
+	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)
+	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)
+	at org.apache.xerces.parsers.XMLParser.parse(Unknown Source)
+	at org.apache.xerces.parsers.AbstractSAXParser.parse(Unknown Source)
+	at org.apache.xerces.jaxp.SAXParserImpl$JAXPSAXParser.parse(Unknown Source)
+	at org.apache.xerces.jaxp.SAXParserImpl.parse(Unknown Source)
+	at java.xml/javax.xml.parsers.SAXParser.parse(SAXParser.java:276)
+	at com.dcaiti.mosaic.tools.scenarioconvert.importer.sumo.SumoNetFileLoader.importNetFile(SumoNetFileLoader.java:69)
+	at com.dcaiti.mosaic.tools.scenarioconvert.importer.sumo.SumoImport.importNetwork(SumoImport.java:107)
+	at com.dcaiti.mosaic.tools.scenarioconvert.core.Converter.convert(Converter.java:94)
+	at com.dcaiti.mosaic.tools.scenarioconvert.core.Starter.main(Starter.java:36)
+17:31:59.306 WARN  - Could not determine UTM zone letter of zone '32'. Assuming default zone letter 'n'
+17:31:59.330 INFO  - checking existing routes
+17:31:59.331 INFO  - no route file for import given, ignoring!
+17:31:59.617 INFO  - Saving 5 nodes...
+17:31:59.631 INFO  - Saving 8 ways...
+17:31:59.667 INFO  - Saving 8 connections...
+17:31:59.699 INFO  - Saving 14 restrictions...
+17:31:59.719 INFO  - Saving 0 routes...
+17:31:59.720 INFO  - Saving 0 roundabouts...
+17:31:59.721 INFO  - Saving 0 buildings...
+17:31:59.721 INFO  - Create Indices
+17:31:59.754 INFO  - Database saved
+17:31:59.755 INFO  - finished
+17:32:53.229 INFO  - Call with parameters: --sumo2db -d application/trabalho.db -i sumo/trabalho.rou.xml
+17:32:53.272 INFO  - initializing database
+17:32:53.274 INFO  - loading database... 
+17:32:53.579 INFO  - success
+
+17:32:53.583 INFO  - No net-file given. No network will be imported.
+17:32:53.592 INFO  - parsing route file
+17:32:53.736 INFO  - processing route 1/2,    
+17:32:53.739 INFO  - processing route 1/2,    edge 1/4
+17:32:53.740 INFO  - processing route 1/2,    edge 2/4
+17:32:53.757 INFO  - processing route 1/2,    edge 3/4
+17:32:53.758 INFO  - processing route 1/2,    edge 4/4
+17:32:53.758 INFO  - processing route 2/2,    
+17:32:53.758 INFO  - processing route 2/2,    edge 1/4
+17:32:53.758 INFO  - processing route 2/2,    edge 2/4
+17:32:53.758 INFO  - processing route 2/2,    edge 3/4
+17:32:53.758 INFO  - processing route 2/2,    edge 4/4
+17:32:53.758 INFO  - no vehicle definitions found
+17:32:53.759 INFO  - 
+
+17:32:54.150 INFO  - Saving 5 nodes...
+17:32:54.162 INFO  - Saving 8 ways...
+17:32:54.198 INFO  - Saving 8 connections...
+17:32:54.243 INFO  - Saving 14 restrictions...
+17:32:54.262 INFO  - Saving 2 routes...
+17:32:54.280 INFO  - Saving 0 roundabouts...
+17:32:54.281 INFO  - Saving 0 buildings...
+17:32:54.282 INFO  - Create Indices
+17:32:54.321 INFO  - Database saved
+17:32:54.322 INFO  - finished
+17:35:08.340 INFO  - Call with parameters: --sumo2db -d application/trabalho.db -i sumo/trabalho.rou.xml
+17:35:08.373 INFO  - initializing database
+17:35:08.373 INFO  - loading database... 
+17:35:08.687 INFO  - success
+
+17:35:08.692 INFO  - No net-file given. No network will be imported.
+17:35:08.694 INFO  - parsing route file
+17:35:08.791 INFO  - processing route 1/2,    
+17:35:08.793 INFO  - processing route 1/2,    edge 1/4
+17:35:08.794 INFO  - processing route 1/2,    edge 2/4
+17:35:08.794 INFO  - processing route 1/2,    edge 3/4
+17:35:08.794 INFO  - processing route 1/2,    edge 4/4
+17:35:08.794 INFO  - processing route 2/2,    
+17:35:08.795 INFO  - processing route 2/2,    edge 1/4
+17:35:08.795 INFO  - processing route 2/2,    edge 2/4
+17:35:08.795 INFO  - processing route 2/2,    edge 3/4
+17:35:08.795 INFO  - processing route 2/2,    edge 4/4
+17:35:08.795 INFO  - no vehicle definitions found
+17:35:08.795 INFO  - 
+
+17:35:09.130 INFO  - Saving 5 nodes...
+17:35:09.147 INFO  - Saving 8 ways...
+17:35:09.179 INFO  - Saving 8 connections...
+17:35:09.217 INFO  - Saving 14 restrictions...
+17:35:09.239 INFO  - Saving 2 routes...
+17:35:09.260 INFO  - Saving 0 roundabouts...
+17:35:09.261 INFO  - Saving 0 buildings...
+17:35:09.263 INFO  - Create Indices
+17:35:09.293 INFO  - Database saved
+17:35:09.295 INFO  - finished
+17:54:30.494 INFO  - Call with parameters: --sumo2db -d application/trabalho.db -i sumo/trabalho.rou.xml
+17:54:30.528 INFO  - initializing database
+17:54:30.529 INFO  - loading database... 
+17:54:30.832 INFO  - success
+
+17:54:30.837 INFO  - No net-file given. No network will be imported.
+17:54:30.838 INFO  - parsing route file
+17:54:30.922 INFO  - processing route 1/2,    
+17:54:30.924 INFO  - processing route 1/2,    edge 1/4
+17:54:30.925 INFO  - processing route 1/2,    edge 2/4
+17:54:30.925 INFO  - processing route 1/2,    edge 3/4
+17:54:30.926 INFO  - processing route 1/2,    edge 4/4
+17:54:30.926 INFO  - processing route 2/2,    
+17:54:30.926 INFO  - processing route 2/2,    edge 1/4
+17:54:30.927 INFO  - processing route 2/2,    edge 2/4
+17:54:30.927 INFO  - processing route 2/2,    edge 3/4
+17:54:30.927 INFO  - processing route 2/2,    edge 4/4
+17:54:30.927 INFO  - no vehicle definitions found
+17:54:30.928 INFO  - 
+
+17:54:31.313 INFO  - Saving 5 nodes...
+17:54:31.328 INFO  - Saving 8 ways...
+17:54:31.369 INFO  - Saving 8 connections...
+17:54:31.406 INFO  - Saving 14 restrictions...
+17:54:31.424 INFO  - Saving 2 routes...
+17:54:31.443 INFO  - Saving 0 roundabouts...
+17:54:31.443 INFO  - Saving 0 buildings...
+17:54:31.445 INFO  - Create Indices
+17:54:31.471 INFO  - Database saved
+17:54:31.473 INFO  - finished
+17:54:29.787 INFO  - Call with parameters: --sumo2db -d application/trabalho.db -i sumo/trabalho.net.xml
+17:54:29.821 INFO  - initializing database
+17:54:29.822 INFO  - loading database... 
+17:54:30.127 INFO  - success
+
+17:54:30.131 INFO  - parsing net file
+17:54:30.139 ERROR - Could not read attribute "origBoundary" in tag "location"
+java.lang.IllegalArgumentException: Invalid latitude: 4086949.963
+	at org.eclipse.mosaic.lib.geo.MutableGeoPoint.validateLatitude(MutableGeoPoint.java:94)
+	at org.eclipse.mosaic.lib.geo.MutableGeoPoint.set(MutableGeoPoint.java:81)
+	at org.eclipse.mosaic.lib.geo.MutableGeoPoint.<init>(MutableGeoPoint.java:77)
+	at org.eclipse.mosaic.lib.geo.GeoPoint.latLon(GeoPoint.java:46)
+	at org.eclipse.mosaic.lib.geo.GeoPoint.lonLat(GeoPoint.java:71)
+	at com.dcaiti.mosaic.tools.scenarioconvert.importer.sumo.net.UtmProjection.determineUtmZone(UtmProjection.java:77)
+	at com.dcaiti.mosaic.tools.scenarioconvert.importer.sumo.net.UtmProjection.<init>(UtmProjection.java:62)
+	at com.dcaiti.mosaic.tools.scenarioconvert.importer.sumo.SumoNetFileLoader.handleNetProjection(SumoNetFileLoader.java:133)
+	at com.dcaiti.mosaic.tools.scenarioconvert.importer.sumo.SumoNetFileLoader.startElement(SumoNetFileLoader.java:94)
+	at org.apache.xerces.parsers.AbstractSAXParser.startElement(Unknown Source)
+	at org.apache.xerces.parsers.AbstractXMLDocumentParser.emptyElement(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl.scanStartElement(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl$FragmentContentDispatcher.dispatch(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl.scanDocument(Unknown Source)
+	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)
+	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)
+	at org.apache.xerces.parsers.XMLParser.parse(Unknown Source)
+	at org.apache.xerces.parsers.AbstractSAXParser.parse(Unknown Source)
+	at org.apache.xerces.jaxp.SAXParserImpl$JAXPSAXParser.parse(Unknown Source)
+	at org.apache.xerces.jaxp.SAXParserImpl.parse(Unknown Source)
+	at java.xml/javax.xml.parsers.SAXParser.parse(SAXParser.java:276)
+	at com.dcaiti.mosaic.tools.scenarioconvert.importer.sumo.SumoNetFileLoader.importNetFile(SumoNetFileLoader.java:69)
+	at com.dcaiti.mosaic.tools.scenarioconvert.importer.sumo.SumoImport.importNetwork(SumoImport.java:107)
+	at com.dcaiti.mosaic.tools.scenarioconvert.core.Converter.convert(Converter.java:94)
+	at com.dcaiti.mosaic.tools.scenarioconvert.core.Starter.main(Starter.java:36)
+17:54:30.142 WARN  - Could not determine UTM zone letter of zone '32'. Assuming default zone letter 'n'
+17:54:30.158 INFO  - checking existing routes
+17:54:30.160 INFO  - no route file for import given, ignoring!
+17:54:30.442 INFO  - Saving 5 nodes...
+17:54:30.454 INFO  - Saving 8 ways...
+17:54:30.505 INFO  - Saving 8 connections...
+17:54:30.543 INFO  - Saving 14 restrictions...
+17:54:30.572 INFO  - Saving 2 routes...
+17:54:30.593 INFO  - Saving 0 roundabouts...
+17:54:30.594 INFO  - Saving 0 buildings...
+17:54:30.595 INFO  - Create Indices
+17:54:30.633 INFO  - Database saved
+17:54:30.635 INFO  - finished
+18:18:20.722 INFO  - Call with parameters: --sumo2db -d application/trabalho.db -i sumo/trabalho.net.xml
+18:18:20.806 INFO  - initializing database
+18:18:20.806 INFO  - loading database... 
+18:18:21.337 INFO  - success
+
+18:18:21.345 INFO  - parsing net file
+18:18:21.353 ERROR - An unexpected error occurred.
+java.lang.NullPointerException: If import-zone is not given, import-lat and import-lon must be defined.
+	at java.base/java.util.Objects.requireNonNull(Objects.java:360)
+	at org.apache.commons.lang3.Validate.notNull(Validate.java:1037)
+	at com.dcaiti.mosaic.tools.scenarioconvert.importer.sumo.SumoImport.processUtmZone(SumoImport.java:420)
+	at com.dcaiti.mosaic.tools.scenarioconvert.importer.sumo.SumoNetFileLoader.handleNetProjection(SumoNetFileLoader.java:139)
+	at com.dcaiti.mosaic.tools.scenarioconvert.importer.sumo.SumoNetFileLoader.startElement(SumoNetFileLoader.java:94)
+	at org.apache.xerces.parsers.AbstractSAXParser.startElement(Unknown Source)
+	at org.apache.xerces.parsers.AbstractXMLDocumentParser.emptyElement(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl.scanStartElement(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl$FragmentContentDispatcher.dispatch(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl.scanDocument(Unknown Source)
+	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)
+	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)
+	at org.apache.xerces.parsers.XMLParser.parse(Unknown Source)
+	at org.apache.xerces.parsers.AbstractSAXParser.parse(Unknown Source)
+	at org.apache.xerces.jaxp.SAXParserImpl$JAXPSAXParser.parse(Unknown Source)
+	at org.apache.xerces.jaxp.SAXParserImpl.parse(Unknown Source)
+	at java.xml/javax.xml.parsers.SAXParser.parse(SAXParser.java:276)
+	at com.dcaiti.mosaic.tools.scenarioconvert.importer.sumo.SumoNetFileLoader.importNetFile(SumoNetFileLoader.java:69)
+	at com.dcaiti.mosaic.tools.scenarioconvert.importer.sumo.SumoImport.importNetwork(SumoImport.java:107)
+	at com.dcaiti.mosaic.tools.scenarioconvert.core.Converter.convert(Converter.java:94)
+	at com.dcaiti.mosaic.tools.scenarioconvert.core.Starter.main(Starter.java:36)
+18:18:21.361 ERROR - Could not load network data from Net File.
+java.lang.IllegalStateException: Could not parse network file
+	at com.dcaiti.mosaic.tools.scenarioconvert.importer.sumo.SumoNetFileLoader.importNetFile(SumoNetFileLoader.java:78)
+	at com.dcaiti.mosaic.tools.scenarioconvert.importer.sumo.SumoImport.importNetwork(SumoImport.java:107)
+	at com.dcaiti.mosaic.tools.scenarioconvert.core.Converter.convert(Converter.java:94)
+	at com.dcaiti.mosaic.tools.scenarioconvert.core.Starter.main(Starter.java:36)
+Caused by: java.lang.NullPointerException: If import-zone is not given, import-lat and import-lon must be defined.
+	at java.base/java.util.Objects.requireNonNull(Objects.java:360)
+	at org.apache.commons.lang3.Validate.notNull(Validate.java:1037)
+	at com.dcaiti.mosaic.tools.scenarioconvert.importer.sumo.SumoImport.processUtmZone(SumoImport.java:420)
+	at com.dcaiti.mosaic.tools.scenarioconvert.importer.sumo.SumoNetFileLoader.handleNetProjection(SumoNetFileLoader.java:139)
+	at com.dcaiti.mosaic.tools.scenarioconvert.importer.sumo.SumoNetFileLoader.startElement(SumoNetFileLoader.java:94)
+	at org.apache.xerces.parsers.AbstractSAXParser.startElement(Unknown Source)
+	at org.apache.xerces.parsers.AbstractXMLDocumentParser.emptyElement(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl.scanStartElement(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl$FragmentContentDispatcher.dispatch(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl.scanDocument(Unknown Source)
+	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)
+	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)
+	at org.apache.xerces.parsers.XMLParser.parse(Unknown Source)
+	at org.apache.xerces.parsers.AbstractSAXParser.parse(Unknown Source)
+	at org.apache.xerces.jaxp.SAXParserImpl$JAXPSAXParser.parse(Unknown Source)
+	at org.apache.xerces.jaxp.SAXParserImpl.parse(Unknown Source)
+	at java.xml/javax.xml.parsers.SAXParser.parse(SAXParser.java:276)
+	at com.dcaiti.mosaic.tools.scenarioconvert.importer.sumo.SumoNetFileLoader.importNetFile(SumoNetFileLoader.java:69)
+	... 3 common frames omitted
+18:18:21.361 INFO  - no route file for import given, ignoring!
+18:18:21.783 INFO  - Saving 5 nodes...
+18:18:21.812 INFO  - Saving 8 ways...
+18:18:21.857 INFO  - Saving 8 connections...
+18:18:21.898 INFO  - Saving 14 restrictions...
+18:18:21.927 INFO  - Saving 2 routes...
+18:18:21.948 INFO  - Saving 0 roundabouts...
+18:18:21.948 INFO  - Saving 0 buildings...
+18:18:21.949 INFO  - Create Indices
+18:18:21.986 INFO  - Database saved
+18:18:21.987 INFO  - finished
+18:19:31.173 INFO  - Call with parameters: --sumo2db -d application/trabalho.db -i sumo/trabalho.net.xml
+18:19:31.269 INFO  - initializing database
+18:19:31.269 INFO  - loading database... 
+18:19:31.842 INFO  - success
+
+18:19:31.850 INFO  - parsing net file
+18:19:31.859 ERROR - An unexpected error occurred.
+java.lang.NullPointerException: If import-zone is not given, import-lat and import-lon must be defined.
+	at java.base/java.util.Objects.requireNonNull(Objects.java:360)
+	at org.apache.commons.lang3.Validate.notNull(Validate.java:1037)
+	at com.dcaiti.mosaic.tools.scenarioconvert.importer.sumo.SumoImport.processUtmZone(SumoImport.java:420)
+	at com.dcaiti.mosaic.tools.scenarioconvert.importer.sumo.SumoNetFileLoader.handleNetProjection(SumoNetFileLoader.java:139)
+	at com.dcaiti.mosaic.tools.scenarioconvert.importer.sumo.SumoNetFileLoader.startElement(SumoNetFileLoader.java:94)
+	at org.apache.xerces.parsers.AbstractSAXParser.startElement(Unknown Source)
+	at org.apache.xerces.parsers.AbstractXMLDocumentParser.emptyElement(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl.scanStartElement(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl$FragmentContentDispatcher.dispatch(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl.scanDocument(Unknown Source)
+	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)
+	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)
+	at org.apache.xerces.parsers.XMLParser.parse(Unknown Source)
+	at org.apache.xerces.parsers.AbstractSAXParser.parse(Unknown Source)
+	at org.apache.xerces.jaxp.SAXParserImpl$JAXPSAXParser.parse(Unknown Source)
+	at org.apache.xerces.jaxp.SAXParserImpl.parse(Unknown Source)
+	at java.xml/javax.xml.parsers.SAXParser.parse(SAXParser.java:276)
+	at com.dcaiti.mosaic.tools.scenarioconvert.importer.sumo.SumoNetFileLoader.importNetFile(SumoNetFileLoader.java:69)
+	at com.dcaiti.mosaic.tools.scenarioconvert.importer.sumo.SumoImport.importNetwork(SumoImport.java:107)
+	at com.dcaiti.mosaic.tools.scenarioconvert.core.Converter.convert(Converter.java:94)
+	at com.dcaiti.mosaic.tools.scenarioconvert.core.Starter.main(Starter.java:36)
+18:19:31.866 ERROR - Could not load network data from Net File.
+java.lang.IllegalStateException: Could not parse network file
+	at com.dcaiti.mosaic.tools.scenarioconvert.importer.sumo.SumoNetFileLoader.importNetFile(SumoNetFileLoader.java:78)
+	at com.dcaiti.mosaic.tools.scenarioconvert.importer.sumo.SumoImport.importNetwork(SumoImport.java:107)
+	at com.dcaiti.mosaic.tools.scenarioconvert.core.Converter.convert(Converter.java:94)
+	at com.dcaiti.mosaic.tools.scenarioconvert.core.Starter.main(Starter.java:36)
+Caused by: java.lang.NullPointerException: If import-zone is not given, import-lat and import-lon must be defined.
+	at java.base/java.util.Objects.requireNonNull(Objects.java:360)
+	at org.apache.commons.lang3.Validate.notNull(Validate.java:1037)
+	at com.dcaiti.mosaic.tools.scenarioconvert.importer.sumo.SumoImport.processUtmZone(SumoImport.java:420)
+	at com.dcaiti.mosaic.tools.scenarioconvert.importer.sumo.SumoNetFileLoader.handleNetProjection(SumoNetFileLoader.java:139)
+	at com.dcaiti.mosaic.tools.scenarioconvert.importer.sumo.SumoNetFileLoader.startElement(SumoNetFileLoader.java:94)
+	at org.apache.xerces.parsers.AbstractSAXParser.startElement(Unknown Source)
+	at org.apache.xerces.parsers.AbstractXMLDocumentParser.emptyElement(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl.scanStartElement(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl$FragmentContentDispatcher.dispatch(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl.scanDocument(Unknown Source)
+	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)
+	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)
+	at org.apache.xerces.parsers.XMLParser.parse(Unknown Source)
+	at org.apache.xerces.parsers.AbstractSAXParser.parse(Unknown Source)
+	at org.apache.xerces.jaxp.SAXParserImpl$JAXPSAXParser.parse(Unknown Source)
+	at org.apache.xerces.jaxp.SAXParserImpl.parse(Unknown Source)
+	at java.xml/javax.xml.parsers.SAXParser.parse(SAXParser.java:276)
+	at com.dcaiti.mosaic.tools.scenarioconvert.importer.sumo.SumoNetFileLoader.importNetFile(SumoNetFileLoader.java:69)
+	... 3 common frames omitted
+18:19:31.867 INFO  - no route file for import given, ignoring!
+18:19:32.211 INFO  - Saving 5 nodes...
+18:19:32.235 INFO  - Saving 8 ways...
+18:19:32.275 INFO  - Saving 8 connections...
+18:19:32.321 INFO  - Saving 14 restrictions...
+18:19:32.342 INFO  - Saving 2 routes...
+18:19:32.364 INFO  - Saving 0 roundabouts...
+18:19:32.364 INFO  - Saving 0 buildings...
+18:19:32.365 INFO  - Create Indices
+18:19:32.398 INFO  - Database saved
+18:19:32.400 INFO  - finished
+18:54:19.259 INFO  - Call with parameters: --sumo2db -d application/trabalho.db -i sumo/trabalho.net.xml
+18:54:19.342 INFO  - initializing database
+18:54:19.342 INFO  - loading database... 
+18:54:19.817 INFO  - success
+
+18:54:19.824 INFO  - parsing net file
+18:54:19.856 ERROR - Could not read attribute "origBoundary" in tag "location"
+java.lang.IllegalArgumentException: Invalid latitude: 4086949.963
+	at org.eclipse.mosaic.lib.geo.MutableGeoPoint.validateLatitude(MutableGeoPoint.java:94)
+	at org.eclipse.mosaic.lib.geo.MutableGeoPoint.set(MutableGeoPoint.java:81)
+	at org.eclipse.mosaic.lib.geo.MutableGeoPoint.<init>(MutableGeoPoint.java:77)
+	at org.eclipse.mosaic.lib.geo.GeoPoint.latLon(GeoPoint.java:46)
+	at org.eclipse.mosaic.lib.geo.GeoPoint.lonLat(GeoPoint.java:71)
+	at com.dcaiti.mosaic.tools.scenarioconvert.importer.sumo.net.UtmProjection.determineUtmZone(UtmProjection.java:77)
+	at com.dcaiti.mosaic.tools.scenarioconvert.importer.sumo.net.UtmProjection.<init>(UtmProjection.java:62)
+	at com.dcaiti.mosaic.tools.scenarioconvert.importer.sumo.SumoNetFileLoader.handleNetProjection(SumoNetFileLoader.java:133)
+	at com.dcaiti.mosaic.tools.scenarioconvert.importer.sumo.SumoNetFileLoader.startElement(SumoNetFileLoader.java:94)
+	at org.apache.xerces.parsers.AbstractSAXParser.startElement(Unknown Source)
+	at org.apache.xerces.parsers.AbstractXMLDocumentParser.emptyElement(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl.scanStartElement(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl$FragmentContentDispatcher.dispatch(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentFragmentScannerImpl.scanDocument(Unknown Source)
+	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)
+	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)
+	at org.apache.xerces.parsers.XMLParser.parse(Unknown Source)
+	at org.apache.xerces.parsers.AbstractSAXParser.parse(Unknown Source)
+	at org.apache.xerces.jaxp.SAXParserImpl$JAXPSAXParser.parse(Unknown Source)
+	at org.apache.xerces.jaxp.SAXParserImpl.parse(Unknown Source)
+	at java.xml/javax.xml.parsers.SAXParser.parse(SAXParser.java:276)
+	at com.dcaiti.mosaic.tools.scenarioconvert.importer.sumo.SumoNetFileLoader.importNetFile(SumoNetFileLoader.java:69)
+	at com.dcaiti.mosaic.tools.scenarioconvert.importer.sumo.SumoImport.importNetwork(SumoImport.java:107)
+	at com.dcaiti.mosaic.tools.scenarioconvert.core.Converter.convert(Converter.java:94)
+	at com.dcaiti.mosaic.tools.scenarioconvert.core.Starter.main(Starter.java:36)
+18:54:19.868 WARN  - Could not determine UTM zone letter of zone '27'. Assuming default zone letter 'n'
+18:54:19.910 INFO  - checking existing routes
+18:54:19.912 WARN  - Connection -E0 doesn't exist; won't be kept in route r_0.
+18:54:19.913 WARN  - Connection -E4 doesn't exist; won't be kept in route r_0.
+18:54:19.913 WARN  - Connection -E3 doesn't exist; won't be kept in route r_0.
+18:54:19.913 WARN  - Connection -E1 doesn't exist; won't be kept in route r_0.
+18:54:19.913 WARN  - Route r_0 won't be kept, since no valid connection was found.
+18:54:19.913 WARN  - Connection E4 doesn't exist; won't be kept in route r_1.
+18:54:19.913 INFO  - no route file for import given, ignoring!
+18:54:20.335 INFO  - Saving 4 nodes...
+18:54:20.355 INFO  - Saving 4 ways...
+18:54:20.406 INFO  - Saving 4 connections...
+18:54:20.453 INFO  - Saving 2 restrictions...
+18:54:20.476 INFO  - Saving 1 routes...
+18:54:20.500 INFO  - Saving 0 roundabouts...
+18:54:20.500 INFO  - Saving 0 buildings...
+18:54:20.503 INFO  - Create Indices
+18:54:20.567 INFO  - Database saved
+18:54:20.568 INFO  - finished
+18:54:28.933 INFO  - Call with parameters: --sumo2db -d application/trabalho.db -i sumo/trabalho.rou.xml
+18:54:29.020 INFO  - initializing database
+18:54:29.021 INFO  - loading database... 
+18:54:29.537 INFO  - success
+
+18:54:29.545 INFO  - No net-file given. No network will be imported.
+18:54:29.549 INFO  - parsing route file
+18:54:29.757 INFO  - processing route 1/2,    
+18:54:29.761 INFO  - processing route 1/2,    edge 1/3
+18:54:29.761 INFO  - processing route 1/2,    edge 2/3
+18:54:29.761 INFO  - processing route 1/2,    edge 3/3
+18:54:29.762 INFO  - processing route 2/2,    
+18:54:29.762 INFO  - processing route 2/2,    edge 1/1
+18:54:29.762 INFO  - no vehicle definitions found
+18:54:29.762 INFO  - 
+
+18:54:30.368 INFO  - Saving 4 nodes...
+18:54:30.393 INFO  - Saving 4 ways...
+18:54:30.438 INFO  - Saving 4 connections...
+18:54:30.475 INFO  - Saving 2 restrictions...
+18:54:30.499 INFO  - Saving 2 routes...
+18:54:30.521 INFO  - Saving 0 roundabouts...
+18:54:30.522 INFO  - Saving 0 buildings...
+18:54:30.523 INFO  - Create Indices
+18:54:30.560 INFO  - Database saved
+18:54:30.561 INFO  - finished
