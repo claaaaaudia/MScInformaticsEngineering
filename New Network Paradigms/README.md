@@ -1,7 +1,5 @@
 # Gestão Cooperativa de Tráfego em Zona de Obras com V2X
  
-Projeto desenvolvido no âmbito de Novos Paradigmas de Rede (2025/2026) — Universidade do Minho.
- 
 Simulação de um sistema cooperativo de gestão de tráfego em zonas de obras, baseado em comunicações V2X (ITS-G5), utilizando Eclipse MOSAIC e SUMO. Uma RSU dissemina recomendações dinâmicas de velocidade por zonas e os veículos cooperam via comunicação V2V multi-hop.
  
 ---
