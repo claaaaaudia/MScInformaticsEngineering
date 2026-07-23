@@ -1,0 +1,249 @@
+module Ricart_Agrawala
+  use int.Int
+  use list.List
+  use map.Map
+  use list.Mem
+
+  type pid = int
+  
+  val constant n_processes : int
+  axiom n_processes_pos : n_processes > 0
+  
+  (* logical clock timestamp *)
+  type timestamp = int 
+
+  (* processes have states *)
+  type st = Requesting | CS | NCS 
+  
+  (* processes makes request *)
+  type request = { rts: timestamp; rpid: pid }
+  
+  (* processes requests have order *)
+  predicate less_req (r1 r2: request) =
+    r1.rts < r2.rts \/ (r1.rts = r2.rts /\ r1.rpid < r2.rpid)
+
+  predicate more_req (r1 r2: request) =
+    r1.rts > r2.rts \/ (r1.rts = r2.rts /\ r1.rpid > r2.rpid)
+  
+  type p_queue = list request
+  
+  constant max_int : int
+  axiom max_int_bound : forall x: int. x <= max_int
+
+  (*
+  Assumptions:
+    - processes don't fail
+    - messages are never lost
+    - finite channel latencies (value is unknown)
+  *)
+  
+  (* ------------------------------------------------------------------------------------------------------ *)
+  
+  type world = { state : map pid st ;
+       	       	 n_replies : map pid int ;
+		             last_req : map pid timestamp ;
+		             num : map pid timestamp ; (* clock *)
+		             queues: map pid p_queue }
+ 
+
+
+  (* System INIT *)
+  predicate initWorld_p (w:world) =   forall p:pid .
+                                        w.state[p] = NCS /\
+                                        w.n_replies[p] = 0 /\
+                                        w.last_req[p] = max_int /\
+                                        w.num[p] = 0 /\
+                                        w.queues[p] = Nil
+                                     
+                                  
+  let ghost predicate initWorld (w:world) = initWorld_p w
+
+  (* Inductive invariant *)
+  predicate oneInCS (w:world) = forall p q :pid. 
+  (w.state[p] = CS /\ w.state[q] = CS) -> p = q 
+  
+  predicate inv (w:world) = (* forte o suficiente? *)
+    w.oneInCS
+    /\
+    (forall p. w.state[p] = CS -> w.n_replies[p] = n_processes - 1)
+  
+  (* ------------------------------------------------------------------------------------------------------ *)
+  (* System actions *)
+
+(*
+  ============================================================================
+  repeat
+    1. State = Requesting
+    2. Num = Num + 1; Last_Req = num
+    
+    Note: line 2 is executed atomically
+  ============================================================================
+*)
+  predicate request_Send_enbld (w:world) (p:pid) = 
+    0<=p<n_processes /\ w.state[p] = NCS 
+    
+  let ghost function request_Send (w:world) (p:pid) : world
+    requires { request_Send_enbld w p }
+    ensures  { inv w -> inv result }
+  = { state = set (w.state) p Requesting;
+      num = set (w.num) p (w.num[p] + 1);
+      last_req = set (w.last_req) p (w.num[p]);
+      n_replies = w.n_replies;
+      queues = w.queues;
+     }
+     
+(*
+  ============================================================================
+    4. Wait until #replies == N - 1
+    5. State = CS
+    6. CS
+  ============================================================================
+*)
+      
+  predicate enter_CS_enbld (w:world) (p:pid) = 
+    0<=p<n_processes /\ w.n_replies[p] = n_processes - 1 /\ w.state[p] = Requesting
+
+  let ghost function enter_CS (w:world) (p:pid) : world
+    requires { enter_CS_enbld w p }
+    ensures  { inv w -> inv result }
+  = { state = set (w.state) p CS;
+      num = w.num;
+      last_req = w.last_req;
+      n_replies = w.n_replies;
+      queues = w.queues
+  }
+  
+(*
+  ============================================================================
+    7. forall r in Q, send REPLY to r
+       Q = vazio; State = NCS; #replies = 0;
+       Last_Req = MAX_INT
+  ============================================================================
+*)
+    
+  predicate leave_CS_enbld (w:world) (p:pid) = 
+    0<=p<n_processes /\ w.state[p] = CS
+
+  let ghost function leave_CS (w: world) (p: pid) : world
+    requires { leave_CS_enbld w p }
+    ensures  { inv w -> inv result }
+  =
+    { state     = set w.state     p NCS;
+      num       = w.num;
+      last_req  = set w.last_req  p max_int;
+      n_replies = set w.n_replies p 0;
+      queues    = set w.queues    p Nil }
+
+(*
+  ============================================================================
+  Upon receipt of REQUEST(t) from pj
+    8. Num = max(t, Num)
+    9. If State == CS or (State == Requesting and {Last_Req,i} < {t,j})
+    10. Then insert {t, j} into Q
+    11. Else send REPLY to pj
+  ============================================================================
+*)
+ 
+  predicate request_Receive_enbld (w: world) (p: pid) (r: request) =
+    0<=p<n_processes /\ p <> r.rpid /\ (w.state[p] = CS \/ (w.state[p] = Requesting /\ less_req { rts = w.last_req[p]; rpid = p } r)) 
+  
+  let ghost function request_Receive (w:world) (r:request) (p:pid) : world
+    requires { request_Receive_enbld w p r }
+    ensures  { inv w -> inv result }
+  =  
+    let new_clock =
+      if w.num[r.rpid] > w.num[p] then w.num[r.rpid] + 1
+      else w.num[p]
+    in
+    let new_queue = Cons r w.queues[p] in
+    { state     = w.state;
+      num       = set w.num p new_clock;
+      last_req  = w.last_req;
+      n_replies = w.n_replies;
+      queues    = set w.queues p new_queue }
+      
+  predicate reply_Send_enbld (w:world) (p:pid) (r:request) =
+    (0<=p<n_processes /\ p <> r.rpid /\ w.state[p] = NCS) 
+    \/ 
+    (0<=p<n_processes /\ p <> r.rpid /\ w.state[p] = Requesting /\ less_req r { rts = w.last_req[p]; rpid = p })
+  
+  let ghost function reply_Send (w:world) (p:pid) (r:request) : world
+    requires { reply_Send_enbld w p r }
+    ensures  { inv w -> inv result }
+  = { state     = w.state;
+      num       = w.num;
+      last_req  = w.last_req;
+      n_replies = set w.n_replies r.rpid (w.n_replies[r.rpid] + 1);
+      queues    = w.queues }
+
+(*
+  ============================================================================
+  Upon receipt of REPLY from pj
+    12. #replies = #replies + 1
+  ============================================================================
+*)
+
+  predicate reply_Receive_enbld (w:world) (p:pid) = 
+    0<=p<n_processes /\  w.state[p] = Requesting
+
+  let ghost function reply_Receive (w:world) (p:pid) : world
+    requires { reply_Receive_enbld w p}
+    ensures  { inv w -> inv result }
+  = {state     = w.state;
+      num       = w.num ;
+      last_req  = w.last_req;
+      n_replies = set (w.n_replies) p (w.n_replies[p] + 1);
+      queues    = w.queues 
+     }
+     
+  (* ------------------------------------------------------------------------------------------------------ *)
+     
+  (* step *)
+  inductive stepind world world =
+  | step_req_send    : forall w p. request_Send_enbld w p        -> stepind w (request_Send w p)
+  | step_enter_cs    : forall w p. enter_CS_enbld w p            -> stepind w (enter_CS w p)
+  | step_leave_cs    : forall w p. leave_CS_enbld w p            -> stepind w (leave_CS w p)
+  | step_req_receive : forall w r p. request_Receive_enbld w p r -> stepind w (request_Receive w r p)
+  | step_reply_recv  : forall w p. reply_Receive_enbld w p       -> stepind w (reply_Receive w p)
+  | step_reply_send  : forall w p r. reply_Send_enbld w p r -> stepind w (reply_Send w p r)
+
+  let ghost predicate step (w1:world) (w2:world) = stepind w1 w2
+   
+  (* Proof of inductiveness *) 
+  clone export inductiveness.Inductiveness with
+    type world = world,
+    predicate inv = inv,
+    val initWorld = initWorld,
+    val step = step
+    
+  (* Safety Properties *)
+  
+  (* 1. Mutual Exclusion *)
+  goal mutualExclusion :
+    forall w :world, p q :pid. reachable w ->
+      0<=p<n_processes -> 0<=q<n_processes -> w.state[p] = CS -> w.state[q] = CS ->
+        p = q
+        
+  (* 2. A process must receive REPLY messages from all other processes before entering the critical section. *)
+  goal allRepliesBeforeCS :
+    forall w :world, p :pid. reachable w ->
+      0<=p<n_processes -> w.state[p] = CS ->
+        w.n_replies[p] = n_processes - 1
+        
+  (* 3. A process can only send a REPLY message if it is neither requesting nor currently executing the critical section. *)
+  goal replySendOnlyIfNotCSOrRequesting :
+    forall w :world, p :pid, r :request. reachable w ->
+      0<=p<n_processes -> reply_Send_enbld w p r ->
+        w.state[p] = NCS \/ w.state[p] = Requesting
+    
+  (* 4. If p has smaller timestamp than q, then q will not have p's request in its queue (meaning it already replied). *)
+  (*
+  goal smallerTimestampGetsReply :
+    forall w :world, p q :pid. reachable w ->
+      0<=p<n_processes -> 0<=q<n_processes -> p <> q ->
+      w.state[p] = Requesting -> w.state[q] = Requesting ->
+      less_req { rts = w.last_req[p]; rpid = p } { rts = w.last_req[q]; rpid = q } ->
+        not (mem { rts = w.last_req[p]; rpid = p } w.queues[q])
+  *)
+  
+end

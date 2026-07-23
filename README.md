@@ -119,4 +119,46 @@ The solution was validated through performance and fault-tolerance experiments, 
 
 ---
 
+## 🚀 Cyber-Physical Programming
+
+A course focused on the **modeling, analysis, and verification of cyber-physical systems**, combining formal methods, concurrency, and system correctness techniques.
+
+### ✈️ Project 1 — The Curious Case of an Airport
+
+Development and formal verification of an **airport traffic management system** using **Uppaal**.
+
+The project models the interaction between planes, runways, and a controller responsible for coordinating takeoff and landing requests. The system was analyzed through reachability, safety, and liveness properties to ensure correct behavior under concurrent access to shared resources.
+
+**Technical Highlights:**
+
+* Modeling with Uppaal timed automata
+* Verification of safety and liveness properties
+* Runway allocation and controller design
+* Deadlock detection and prevention
+* Analysis of starvation and fairness issues
+
+🎯 **Skills acquired:**
+`Formal Methods` · `Model Checking` · `Uppaal` · `Timed Automata` · `Concurrent Systems` · `System Verification`
+
+### 🌉 Project 2 — The Rope Bridge Problem
+
+Modeling and analysis of a classic **resource-constrained synchronization problem** using **functional programming and monads**.
+
+The challenge consists of finding the optimal strategy for four adventurers to cross a bridge with a single flashlight while minimizing total crossing time. The project explores deterministic, non-deterministic, and probabilistic system behaviors through monadic abstractions in Haskell.
+
+**Technical Highlights:**
+
+* Functional modeling in Haskell
+* Use of Duration and Non-Deterministic Monads
+* Verification and probabilistic modeling of optimal crossing strategies
+* Computation of state distributions and execution outcomes
+
+The project demonstrates how monads can be used to model complex cyber-physical behaviors, reason about uncertainty, and analyze system outcomes through both deterministic and probabilistic perspectives.
+
+🎯 **Skills acquired:**
+`Functional Programming` · `Haskell` · `Monads` · `State Space Exploration` · `Probabilistic Modeling` · `System Analysis`
+
+
+---
+
 ✨ *Feel free to explore each folder for code, reports, and implementation details.*

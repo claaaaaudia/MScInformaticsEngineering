@@ -1,0 +1,201 @@
+module MutexSpec
+
+  use int.Int
+  use map.Map
+
+  type pid = int  (* or imported *)
+
+  type world = { inCS : map pid bool }
+
+  predicate inv (w:world) =
+    forall p q. w.inCS[p] /\ w.inCS[q] -> p = q
+
+  predicate initWorld_p (w:world) =
+    forall p. not w.inCS[p]
+
+  let ghost predicate initWorld (w:world)
+    ensures { result -> inv w }
+  = initWorld_p w
+
+  predicate step_p (w1:world) (w2:world) =
+    (exists p. not w1.inCS[p] /\ w2.inCS[p] /\ forall q. q<>p -> w2.inCS[q] = w1.inCS[q])
+    \/
+    (exists p. w1.inCS[p] /\ not w2.inCS[p] /\ forall q. q<>p -> w2.inCS[q] = w1.inCS[q])
+
+  let ghost predicate step (w1:world) (w2:world)
+    ensures { result -> inv w1 -> inv w2 }
+  = step_p w1 w2
+
+end
+
+module Ricart_Agrawala_Refined
+  use int.Int
+  use list.List
+  use map.Map
+  
+  use alg.Ricart_Agrawala as RA
+  use MutexSpec as MS
+  
+  (* Refinement Mapping *)
+  let ghost function refn (w:RA.world) : MS.world = { MS.inCS = fun p -> match (RA.state w)[p] with RA.CS -> true | _ -> false end }
+  
+  (* System INIT *)
+  let ghost predicate initWorldC (w:RA.world) = RA.initWorld w
+  
+(* ------------------------------------------------------------------------------------------------------ *)
+  (* System actions with added clause using MS *)
+
+(*
+  ============================================================================
+  repeat
+    1. State = Requesting
+    2. Num = Num + 1; Last_Req = num
+    
+    Note: line 2 is executed atomically
+  ============================================================================
+*)
+    
+  let ghost function request_Send (w:RA.world) (p:RA.pid) : RA.world
+    requires { RA.request_Send_enbld w p }
+    ensures  { RA.inv w -> RA.inv result }
+    ensures  { RA.inv w -> refn result = refn w
+                \/ MS.step (refn w) (refn result) }
+  = { RA.state = set (RA.state w) p RA.Requesting;
+      RA.num = set (RA.num w) p ((RA.num w)[p] + 1);
+      RA.last_req = set (RA.last_req w) p ((RA.num w)[p]);
+      RA.n_replies = RA.n_replies w;
+      RA.queues = RA.queues w;
+     }
+     
+(*
+  ============================================================================
+    4. Wait until #replies == N - 1
+    5. State = CS
+    6. CS
+  ============================================================================
+*)
+
+  let ghost function enter_CS (w:RA.world) (p:RA.pid) : RA.world
+    requires { RA.enter_CS_enbld w p }
+    ensures  { RA.inv w -> RA.inv result }
+    ensures  { RA.inv w -> refn result = refn w
+                \/ MS.step (refn w) (refn result) }
+  = { RA.state = set (RA.state w) p RA.CS;
+      RA.num = RA.num w;
+      RA.last_req = RA.last_req w;
+      RA.n_replies = RA.n_replies w;
+      RA.queues = RA.queues w
+  }
+  
+(*
+  ============================================================================
+    7. forall r in Q, send REPLY to r
+       Q = vazio; State = NCS; #replies = 0;
+       Last_Req = MAX_INT
+  ============================================================================
+*)
+    
+  let ghost function leave_CS (w:RA.world) (p:RA.pid) : RA.world
+    requires { RA.leave_CS_enbld w p }
+    ensures  { RA.inv w -> RA.inv result }
+    ensures  { RA.inv w -> refn result = refn w
+                \/ MS.step (refn w) (refn result) }
+  =
+    { RA.state     = set (RA.state w)     p RA.NCS;
+      RA.num       = RA.num w;
+      RA.last_req  = set (RA.last_req w)  p RA.max_int;
+      RA.n_replies = set (RA.n_replies w) p 0;
+      RA.queues    = set (RA.queues w)    p Nil }
+
+(*
+  ============================================================================
+  Upon receipt of REQUEST(t) from pj
+    8. Num = max(t, Num)
+    9. If State == CS or (State == Requesting and {Last_Req,i} < {t,j})
+    10. Then insert {t, j} into Q
+    11. Else send REPLY to pj
+  ============================================================================
+*)
+  
+  let ghost function request_Receive (w:RA.world) (r:RA.request) (p:RA.pid) : RA.world
+    requires { RA.request_Receive_enbld w p r }
+    ensures  { RA.inv w -> RA.inv result }
+    ensures  { RA.inv w -> refn result = refn w
+                \/ MS.step (refn w) (refn result) }
+  =  
+    let new_clock =
+      if (RA.num w)[RA.rpid r] > (RA.num w)[p] then (RA.num w)[RA.rpid r] + 1
+      else (RA.num w)[p]
+    in
+    let new_queue = Cons r (RA.queues w)[p] in
+    { RA.state     = RA.state w;
+      RA.num       = set (RA.num w) p new_clock;
+      RA.last_req  = RA.last_req w;
+      RA.n_replies = RA.n_replies w;
+      RA.queues    = set (RA.queues w) p new_queue }
+  
+  let ghost function reply_Send (w:RA.world) (p:RA.pid) (r:RA.request) : RA.world
+    requires { RA.reply_Send_enbld w p r }
+    ensures  { RA.inv w -> RA.inv result }
+    ensures  { RA.inv w -> refn result = refn w
+                \/ MS.step (refn w) (refn result) }
+  = { RA.state     = RA.state w;
+      RA.num       = RA.num w;
+      RA.last_req  = RA.last_req w;
+      RA.n_replies = set (RA.n_replies w) (RA.rpid r) ((RA.n_replies w)[RA.rpid r] + 1);
+      RA.queues    = RA.queues w }
+
+(*
+  ============================================================================
+  Upon receipt of REPLY from pj
+    12. #replies = #replies + 1
+  ============================================================================
+*)
+
+  let ghost function reply_Receive (w:RA.world) (p:RA.pid) : RA.world
+    requires { RA.reply_Receive_enbld w p }
+    ensures  { RA.inv w -> RA.inv result }
+    ensures  { RA.inv w -> refn result = refn w
+                \/ MS.step (refn w) (refn result) }
+  = { RA.state     = RA.state w;
+      RA.num       = RA.num w;
+      RA.last_req  = RA.last_req w;
+      RA.n_replies = set (RA.n_replies w) p ((RA.n_replies w)[p] + 1);
+      RA.queues    = RA.queues w 
+     }
+     
+  (* ------------------------------------------------------------------------------------------------------ *)
+  
+  (* Transition Relation *)
+  inductive stepind RA.world RA.world =
+  | step_req_send    : forall w p. RA.request_Send_enbld w p        -> stepind w (request_Send w p)
+  | step_enter_cs    : forall w p. RA.enter_CS_enbld w p            -> stepind w (enter_CS w p)
+  | step_leave_cs    : forall w p. RA.leave_CS_enbld w p            -> stepind w (leave_CS w p)
+  | step_req_receive : forall w r p. RA.request_Receive_enbld w p r -> stepind w (request_Receive w r p)
+  | step_reply_send  : forall w p r. RA.reply_Send_enbld w p r      -> stepind w (reply_Send w p r)
+  | step_reply_recv  : forall w p. RA.reply_Receive_enbld w p       -> stepind w (reply_Receive w p)
+
+  let ghost predicate step (w1:RA.world) (w2:RA.world) = stepind w1 w2
+  
+  (* Proof of Refinement *)
+  clone refinement.Refinement with
+    type worldC = RA.world,
+    type worldA = MS.world,
+    val refn = refn,
+    predicate invC = RA.inv,
+    predicate invA = MS.inv,
+    val initWorldC = initWorldC,
+    val initWorldA = MS.initWorld,
+    val stepC = step,
+    val stepA = MS.step
+  
+  (* Safety Property *)
+  
+  (* 1. Mutual Exclusion *)
+  goal mutualExclusion :
+    forall w:RA.world, p q:RA.pid. RA.reachable w ->
+    0<=p<RA.n_processes -> 0<=q<RA.n_processes ->
+    (refn w).MS.inCS[p] -> (refn w).MS.inCS[q] ->
+      p = q
+  
+end
