@@ -4,8 +4,6 @@ This repository is a curated collection of projects and lab assignments develope
 
 Each folder contains the corresponding source code and reports for specific courses. Below is an overview of the projects, along with their main goals and the skills acquired.
 
-> ⚠️ Note: This repository is still in development as I finish my degree :)
-
 ---
 
 ## 📊 Data and Machine Learning
